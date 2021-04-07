@@ -1,0 +1,50 @@
+class Vehicle {   //encapsulation:objects and elements in same group.
+protected:
+    int speed;
+    float steering_angle;
+public:
+    set_steering(float a)
+    {
+    steering_angle=a;
+    }
+    virtual set_speed()//polymorphism
+    {
+    }
+ };
+
+class Car:public Vehicle {   //Inheritance:passes object from family class to child class
+      
+      public:
+           set_speed(int s)
+           {
+              if (s>120)
+                  s=120;
+              speed=s;
+           }
+}
+
+class Truck: public Vehicle {
+private ://-->abstraction
+    int speed;
+    float steering_angle;
+public:
+    set_speed(int s)
+    {
+    if (s>95)
+       s=95;
+    speed=s
+    }
+};
+move (Vehicle *v,int speed ,float angle)
+{
+    v->set_speed();
+}
+
+int main()
+{
+     Car c;
+     Truck t;
+     c.set_speed(40);
+     c.set_steering(30);
+     move(&c,30,10);
+     move(&t,50,20);
