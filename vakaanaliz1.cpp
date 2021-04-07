@@ -1,0 +1,394 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+
+
+typedef struct machine_struct {
+	char* ID;
+	char* Amount;
+	char* Volume;
+	char* Btw_pour;
+	char* Pour_time;
+	char* Time ;
+	char* Dev_id;
+	char* Brand_id;
+	char* CustomerId;
+	char* LocationId;
+	char* CreationDate;
+	char* CL;
+	char* ConvertedAmount;
+	char* ConvertedCL;
+	char* SelectedCL;
+	char* TimeUTC;
+	char* Flow_0;
+	char* FlowRate;
+	char* Mode;
+	char* TapId;
+	char* StopCondition;
+	char* Temp_after;
+	char* Temp_before;	
+	
+	
+}Machine;
+
+
+int search(int *a, int size, int elem) {
+
+
+    int i;
+    for (i = 0; i < size; i++)
+    {
+        
+		if (elem == *(a + i))
+        {
+          return i;
+		       }
+    }
+}
+
+void deletee(int *a, int size, int elem,int index)
+{
+    int i ;
+    a += index;
+    for (i = index; i < size - 1; i++)
+    {
+        *a = *(a + 1);
+        a++;
+    }
+    size--;
+    a -= size;
+}
+void changee(int *a, int elem,int index)
+{
+    int i ;
+    a += index-1;
+    *a=elem;
+        
+}
+void deleteee(int *a, int size, int elem)
+{
+    int i, index = search(a, size, elem);
+    a += index;
+    for (i = index; i < size - 1; i++)
+    {
+        *a = *(a + 1);
+        a++;
+    }
+    size--;
+    a -= size;
+ }
+
+void insert(int *a, int size, int elem,int pos)
+{
+    int i = 0;
+    
+    a += size;
+    for (i = size; i >= pos; i--)
+    {
+        *a = *(a - 1);
+        a--;
+    }
+    *a = elem;
+    a -= pos - 1;
+    size++;
+}
+   
+int write_to_file(int count,int* s,int* a, int * b,int *c,int* d, char const *fileName)
+{
+  const char*y= "ID";
+  const char*x = "Amount";
+  const char*x1 = "Volume";
+  const char*x2= "Converted";
+  const char*x3= "Selected";
+  
+  	
+  FILE *f=fopen(fileName,"w");
+  if(f==NULL) return -1;
+   fprintf(f,"%s,%s,%s,%s,%s\n",y,x,x1,x2,x3);
+  for (int i=0; i<count; i++)
+  {
+    fprintf(f,"%d,%d,%d,%d,%d\n",s[i],a[i],b[i],c[i],d[i]);
+  }
+  fclose(f);
+  return 0;
+}
+            
+
+int j=0;
+
+int main () {
+	
+	FILE* dosya= fopen("C:\\ODEV\\Brand_1.csv","r");	
+	if (dosya == NULL ) {
+
+	  perror("File did not succesfully open.\n");
+	  return -1;
+	  
+}
+  
+   	int i=0;
+	int N=0;
+	
+	
+/**	for (char c=getc(dosya); c!= EOF ; c=getc(dosya)){
+		if (c =='\n') {
+			N++;
+		}
+		---->1710 satýr çýktý
+	}**/
+	Machine* mac;
+	mac = (Machine *)malloc(sizeof(Machine ) * 2000);
+	Machine*mac1;
+	mac1=(Machine *)malloc(sizeof(Machine ) * 2000);	
+	char myline[1024];  
+         
+    while(fgets(myline,1024,dosya) !=NULL && i<1713)  {
+		i++;
+	if ((mac[i].ID=strtok(myline,";"))!=NULL){
+		mac1[i].ID=strdup(mac[i].ID);
+	}
+	if ((mac[i].Amount=strtok(NULL,";"))!=NULL){
+		mac1[i].Amount=strdup(mac[i].Amount);
+	}
+	if ((mac[i].Volume=strtok(NULL,";"))!=NULL){
+		mac1[i].Volume=strdup(mac[i].Volume);
+	}
+	if ((mac[i].Btw_pour=strtok(NULL,";"))!=NULL){
+		mac1[i].Btw_pour=strdup(mac[i].Btw_pour);
+	}
+	if ((mac[i].Pour_time=strtok(NULL,";"))!=NULL){
+		mac1[i].Pour_time=strdup(mac[i].Pour_time);
+	}
+	if ((mac[i].Time=strtok(NULL,";"))!=NULL){
+		mac1[i].Time=strdup(mac[i].Time);
+	}
+if ((mac[i].Dev_id=strtok(NULL,";"))!=NULL){
+		mac1[i].Dev_id=strdup(mac[i].Dev_id);
+	}
+	if ((mac[i].Brand_id=strtok(NULL,";"))!=NULL){
+		mac1[i].Brand_id=strdup(mac[i].Brand_id);
+	}
+	if ((mac[i].CustomerId=strtok(NULL,";"))!=NULL){
+		mac1[i].CustomerId=strdup(mac[i].CustomerId);
+	}
+	if ((mac[i].LocationId=strtok(NULL,";"))!=NULL){
+	
+		mac1[i].LocationId=strdup(mac[i].LocationId);
+	}
+if ((mac[i].CreationDate=strtok(NULL,";"))!=NULL){
+		mac1[i].CreationDate=strdup(mac[i].CreationDate);
+	}
+if ((mac[i].CL=strtok(NULL,";"))!=NULL){
+		mac1[i].CL=strdup(mac[i].CL);
+	}
+	if ((mac[i].ConvertedAmount=strtok(NULL,";"))!=NULL){
+		mac1[i].ConvertedAmount=strdup(mac[i].ConvertedAmount);
+	}
+	if ((mac[i].ConvertedCL=strtok(NULL,";"))!=NULL){                      
+		mac1[i].ConvertedCL=strdup(mac[i].ConvertedCL);
+	}
+	if ((mac[i].SelectedCL=strtok(NULL,";"))!=NULL){ 
+		mac1[i].SelectedCL=strdup(mac[i].SelectedCL);
+	}
+if ((mac[i].TimeUTC=strtok(NULL,";"))!=NULL){
+		mac1[i].TimeUTC=strdup(mac[i].TimeUTC);		
+	}
+	if ((mac[i].Flow_0=strtok(NULL,";"))!=NULL){
+		mac1[i].Flow_0=strdup(mac[i].Flow_0);
+	}
+if ((mac[i].FlowRate=strtok(NULL,";"))!=NULL){
+		mac1[i].FlowRate=strdup(mac[i].FlowRate);
+	}
+
+	if ((mac[i].Mode=strtok(NULL,";"))!=NULL){
+		mac1[i].Mode=strdup(mac[i].Mode);
+	}
+	if ((mac[i].TapId=strtok(NULL,";"))!=NULL){
+		mac1[i].TapId=strdup(mac[i].TapId);
+	}
+if ((mac[i].StopCondition=strtok(NULL,";"))!=NULL){
+		mac1[i].StopCondition=strdup(mac[i].StopCondition);
+	}
+if ((mac[i].Temp_after=strtok(NULL,";"))!=NULL){
+		mac1[i].Temp_after=strdup(mac[i].Temp_after);
+	}
+if ((mac[i].Temp_before=strtok(NULL,";"))!=NULL){
+		mac1[i].Temp_before=strdup(mac[i].Temp_before);
+	}	
+	
+
+  //printf("%s\n",mac1[i].Amount);
+}
+int amount[2000];
+int CL[1710];
+int Volume[1711];
+int Selected[1711];
+int Converted[2500];
+int h =0;
+int counter=0;
+int countedSelected;
+int c[2000];
+int s[200];
+int ss[200];
+int ID[1711];
+int countedSelectedd;
+for (int k =0;k+1<1711;k++) {
+	amount[k]=atoi(mac1[k+1].Amount);
+	CL[k]=atoi(mac1[k+1].SelectedCL);
+	Volume[k]=atoi(mac1[k+1].Volume);
+	Converted[k]=atoi(mac1[k+1].ConvertedCL);
+	ID[k]=atoi(mac1[k+1].ID);
+//	printf("%d %d\n",amount[k],k);
+//	Selected[k]=atoi(mac[k].SelectedCL);
+//	printf("%d",k);
+if (amount[k]==0){
+	counter++;
+    	 c[h]=k;
+	//	 printf("%d %d\n",c[h],counter);
+	     h++;
+		 
+    }
+  }
+  //printf("%d",h);
+  ;//-->596 satýr
+  int x=0;
+  int t=0;
+  int tt=0;
+  int ss1[200];
+ for (;j<1710;j=c[x++]) 
+ {
+ 	if (Converted[j]==CL[j]&& t!=319){
+ 		countedSelected++;
+ 		   s[t]=j; 
+ 		   
+ 	//	 printf("Duzeltilecek tum 30 ve 50cl bardak icin %d sira %d .sayi\n",s[t],t);
+			t++;	
+	 }
+	 else if(Converted[j] != CL[j]) {
+	 	  if (Converted[j]==30){
+		  	 countedSelectedd++;
+ 		   ss[tt]=j;
+ 		   ss1[tt]=ss[tt];
+		//	printf("Duzeltilecek tum 50cl->30cl bardak icin %d sira %d .sayi\n",ss[tt],ss1[tt]); 
+ 		   tt++;	
+		}
+ 	 }   
+ }
+  int f=0;
+  int s2=0;
+  int f1[2000];
+   
+  int t2=0;
+  int t1=0;
+  int countedSelect1=0;
+  int countedSelect2=0; 
+  //int otuzcl[2000];  
+  int *f2=(int*) malloc (1000* sizeof(int));
+  int *f3=(int*) malloc (350* sizeof(int));
+  for (;s2<1710;s2=s[++f]) {
+     
+  if( Converted[s2] == 30 ){
+    	     
+   	      countedSelect1++;
+ 		   f1[t1]=s2;   	
+	//	printf("Duzeltilecek 30CL icin %d sira %d .sayi\n ",f1[t1],t1+1);
+			
+						t1++;  
+			}
+    if (Converted[s2] == 50 )  {
+   	   
+		  
+   	 countedSelect2++;
+   	       f2[t2]=s2; 
+		   f3[t2]=f2[t2];    	
+		//	printf("Duzeltilecek 50CL icin %d sira %d .sayi\n",f3[t2],t2+1);
+			t2++;    	
+   	}
+   	
+   }	
+  int size1=1709;
+  int zero=0; 
+ // printf("%d",tt+t1+t2);-->353 tane 0 çýkarabiliriz
+   
+    deleteee(&c[0],597,zero);
+	deleteee(&s[0],319,zero);
+    deleteee(&s[0],318,zero);
+    deleteee(&ID[0],1710,zero);
+    deleteee(&amount[0],1710,zero);
+    deleteee(&Converted[0],1710,zero);
+    deleteee(&CL[0],1710,zero);
+    deleteee(&Volume[0],1710,zero);
+   
+              
+
+	for (int y=0;y<36;y++) {
+    
+    f2[y+272]=ss1[y];
+	//	printf("%d %d\n",ss1[y],f2[y+272]);    
+	//deletee(&amount[0],size1,zero,ss[y]);
+	//--size1;
+			} /*	for (int d=0;d<size2;d++) {
+   	
+  	printf("%d\n",amount[d]);
+  }*/
+			
+	for (int y1=0;y1<45;y1++) {		
+	f2[y1+308]=f1[y1];//	-----> "0" indislerini birleþtirdim 
+}
+
+for (int d9=0;d9<353;d9++) {
+ //	printf("%d %d\n",f2[d9],d9);
+ changee(&amount[0],18,f2[d9]);
+}
+
+for (int dx=0;dx<272;dx++) {
+
+ changee(&amount[0],2,f3[dx]);
+}	
+for (int dx1=0;dx1<45;dx1++) {
+
+ changee(&amount[0],1,f1[dx1]);
+}
+for (int dx2=0;dx2<36;dx2++) {
+
+ changee(&amount[0],1,ss1[dx2]);
+}
+/*	for (int w=0;w<1710;w++) {
+		
+	printf("%d %d\n",amount[w],w+2);
+	}  	*/	
+
+int size3=1709;	
+write_to_file(size3,&ID[0],&amount[0],&Volume[0],&Converted[0],&CL[0],"C:\\ODEV\\Brandfirst.csv");	//----> datalarý csv ye yazdýrdým.
+
+
+ 
+free(mac);
+free(mac1);
+free (f2);
+
+return 0;
+}
+
+
+/*
+
+HAZIRLAYAN : LEVENT KESKÝN 
+
+*/
+
+
+	
+
+	
+	
+	
+	
+         
+    
+ 
+
+	
+	
+	
