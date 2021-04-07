@@ -1,0 +1,150 @@
+module lauflicht_erweitert(
+ input clk,
+ input reset,
+ input ready,
+ input short,
+ input [4:0] count,
+ output reg led1,
+ output reg led2,
+ output reg led3,
+ output reg [4:0] init,
+ output reg load
+);
+parameter ONE_SETUP = 9'b000000001,
+ ONE_SHORT = 9'b000000010,
+ ONE = 9'b000000100,
+ TWO_SETUP = 9'b000001000,
+ TWO_SHORT = 9'b000010000,
+ TWO = 9'b000100000,
+ THREE_SETUP = 9'b001000000,
+ THREE_SHORT = 9'b010000000,
+ THREE = 9'b100000000;
+reg [8:0] state;
+reg [8:0] nextstate;
+// RESET Schaltung und Synchronisation mit Haupttakt
+always @(posedge clk)
+ if (reset)
+ state <= ONE_SETUP;
+ else
+ state <= nextstate;
+// Uebergangsfunktion
+always @(state, ready, short, count)
+ case (state)
+ // 1st state
+ ONE_SETUP: begin
+ nextstate <= ONE;
+ end
+ ONE: begin
+ if (ready)
+ nextstate <= TWO_SETUP;
+ else if (short && count > 4'd2)
+ nextstate <= ONE_SHORT;
+ else
+ nextstate <= ONE;
+ end
+ ONE_SHORT: begin
+ nextstate <= ONE;
+ end
+ // 2nd state
+ TWO_SETUP: begin
+ nextstate <= TWO;
+ end
+ TWO: begin
+ if (ready)
+ nextstate <= THREE_SETUP;
+ else if (short && count > 4'd2)
+ nextstate <= TWO_SHORT;
+ else
+ nextstate <= TWO;
+ end
+ TWO_SHORT: begin
+ nextstate <= TWO;
+ end
+ // 3rd state
+ THREE_SETUP: begin
+ nextstate <= THREE;
+ end
+ THREE: begin
+ if (ready)
+ nextstate <= ONE_SETUP;
+ else if (short && count > 4'd2)
+ nextstate <= THREE_SHORT;
+ else
+ nextstate <= THREE;
+ end
+ THREE_SHORT: begin
+ nextstate <= THREE;
+ end
+ endcase
+
+// Ausgabefunktion
+always @(state)
+ case (state)
+ // 1st state
+ ONE_SETUP: begin
+ led1 <= 1;
+ led2 <= 0;
+ led3 <= 0;
+ init <= 5;
+ load <= 1;
+ end
+ ONE: begin
+ led1 <= 1;
+ led2 <= 0;
+ led3 <= 0;
+ init <= 0;
+ load <= 0;
+ end
+ ONE_SHORT: begin
+ led1 <= 1;
+ led2 <= 0;
+ led3 <= 0;
+ init <= 2;
+ load <= 1;
+ end
+ // 2nd state
+ TWO_SETUP: begin
+ led1 <= 0;
+ led2 <= 1;
+ led3 <= 0;
+ init <= 5;
+ load <= 1;
+ end
+ TWO: begin
+ led1 <= 0;
+ led2 <= 1;
+ led3 <= 0;
+ init <= 0;
+ load <= 0;
+ end
+ TWO_SHORT: begin
+ led1 <= 0;
+ led2 <= 1;
+ led3 <= 0;
+ init <= 2;
+ load <= 1;
+ end
+ // 3rd state
+ THREE_SETUP: begin
+ led1 <= 0;
+ led2 <= 0;
+ led3 <= 1;
+ init <= 5;
+ load <= 1;
+ end
+ THREE: begin
+ led1 <= 0;
+ led2 <= 0;
+ led3 <= 1;
+ init <= 0;
+ load <= 0;
+ end
+ THREE_SHORT: begin
+ led1 <= 0;
+ led2 <= 0;
+ led3 <= 1;
+ init <= 2;
+ load <= 1;
+ end
+ endcase
+endmodule
