@@ -1,0 +1,137 @@
+syms x y z
+func1=@(x)x^5;
+func2=@(x)log(x);
+func4=@(x)sin(x);
+
+y=linspace(-1,1.4); 
+%Order 3 for x^5
+fig1=figure();
+set(fig1,'color','white');
+plot(y,subs(taylor(func1,x,'Expansionpoint',0.5,'Order',4),x,y),'Linewidth',2)
+hold on 
+plot(y,subs(func1,x,y),'-r','Linewidth',2);
+hold on
+plot(y,subs(taylor(func1,x,'Expansionpoint',0,'Order',4),x,y),'Linewidth',2,'Color','Black')
+xlabel('x','Fontsize',13,'Fontweight','bold','Color','r')
+ylabel('y','Fontsize',13,'Fontweight','bold','Color','r')
+title('3rd Order')
+legend('Taylor a=0.5','Actual Function','Taylor a=0');
+txt={'Plotted Data:','y=x^5'}
+text(0.05,5,txt)
+txt2 = '\rightarrow (1,13/16)';
+t4= text(1,13/16,txt2,'Fontsize',10);
+txt2 = '(1,1) \rightarrow ';
+t5 = text(1,1,txt2,'HorizontalAlignment','right')
+hold off
+% Order 1 for x^5
+fig2=figure();
+set(fig2,'color','white');
+plot(y,subs(taylor(func1,x,'Expansionpoint',0.5,'Order',2),x,y),'Linewidth',2)
+hold on 
+plot(y,subs(func1,x,y),'-r','Linewidth',2);
+hold on
+plot(y,subs(taylor(func1,x,'Expansionpoint',0,'Order',2),x,y),'Linewidth',2,'Color','Black')
+xlabel('x','Fontsize',13,'Fontweight','bold','Color','r')
+ylabel('y','Fontsize',13,'Fontweight','bold','Color','r')
+title('1st Order')
+legend('Taylor a=0.5','Actual Function','Taylor a=0');
+txt={'Plotted Data:','y=x^5'};
+text(0.05,5,txt);
+txt2 = '\rightarrow (1,3/16)';
+t = text(1,3/16,txt2,'Fontsize',10);
+txt3 = '\rightarrow (1,1)';
+t = text(1,1,txt3,'Fontsize',10);
+%Order 5 for x^5
+fig3=figure();
+set(fig3,'color','white');
+plot(y,subs(taylor(func1,x,'Expansionpoint',0.5,'Order',6),x,y),'Linewidth',2)
+hold on 
+plot(y,subs(func1,x,y),'-r','Linewidth',2);
+hold on
+plot(y,subs(taylor(func1,x,'Expansionpoint',0,'Order',6),x,y),'Linewidth',2,'Color','Black')
+xlabel('x','Fontsize',13,'Fontweight','bold','Color','r')
+ylabel('y','Fontsize',13,'Fontweight','bold','Color','r')
+title('5th Order')
+legend('Taylor a=0.5','Actual Function','Taylor a=0');
+txt={'Plotted Data:','y=x^5'}
+text(0.05,5,txt)
+hold off
+%lnx ve sinx için de taylor serisini hesaplayalım(5th order)ln için a=1deki
+%sinx için a=0 seçtim
+%sinx for a=0 and 5th order
+z=linspace(-4,4);
+fig4=figure();
+set(fig4,'color','white');
+plot(y,subs(taylor(func4,x,'Expansionpoint',0,'Order',6),x,z),'Linewidth',2)
+hold on 
+plot(z,subs(func4,x,z),'-r','Linewidth',2);
+xlabel('x','Fontsize',13,'Fontweight','bold','Color','r')
+ylabel('y','Fontsize',13,'Fontweight','bold','Color','r')
+title('5th Order')
+legend('Taylor a=0','Actual Function');
+txt6={'Plotted Data:','y=sin(x)'}
+text(-2,1.5,txt6)
+hold off
+%ln(x) a=1 5th order
+b=linspace(0,2.5);
+fig5=figure();
+set(fig5,'color','white');
+plot(b,subs(taylor(func2,x,'Expansionpoint',1,'Order',6),x,b),'Linewidth',2)
+hold on 
+plot(b,subs(func2,x,b),'-r','Linewidth',2);
+xlabel('x','Fontsize',13,'Fontweight','bold','Color','r')
+ylabel('y','Fontsize',13,'Fontweight','bold','Color','r')
+title('5th Order')
+legend('Taylor a=1','Actual Function');
+txt6={'Plotted Data:','y=ln(x)'};
+text(0.5,1.5,txt6)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+x1=[0.5,1.94,2,2.01]
+%sinx için taylor 5th değerleri a =0
+sin_taylor=subs(taylor(func4,x,'Expansionpoint',0,'Order',6),x,x1)
+%ln(x) için taylor 5th değerleri a=1;
+log_taylor=subs(taylor(func2,x,'Expansionpoint',1,'Order',6),x,x1)
+real_sinval=sin(x1)
+real_logval=log(x1)
+Error1_sin=real_sinval-sin_taylor
+Error2_log=real_logval-log_taylor
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+x2=2:2:6;%ORDER için x^5
+for i=1:1:3
+func1_a1(1,i)=subs(taylor(func1,x,'Expansionpoint',0,'Order',x2(1,i)),x,1)
+func1_a2(1,i)=subs(taylor(func1,x,'Expansionpoint',0.5,'Order',x2(1,i)),x,1)
+end
+
+Relative_err1=abs(func1_a1-subs(func1,x,1))./subs(func1,x,1)
+Relative_err2=abs(func1_a2-subs(func1,x,1))./subs(func1,x,1)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%first order derivatives
+syms z
+func3=@(z)z.^3+2*z.^2-z+3; 
+dFun =@(z)3*z.^2+4*z-1;
+z=linspace(0,2,21);
+F=func3(z);
+h=z(2)-z(1);
+
+zCentral=z(2:end-1);
+dFCenteral=(F(3:end)-F(1:end-2))/(2*h);
+
+zForward=z(1:end-1);
+dFForward=(F(2:end)-F(1:end-1))/h;
+
+zBackward=z(2:end);
+dFBackward=(F(2:end)-F(1:end-1))/h;
+fig6=figure()
+set(fig6,'Color','White')
+plot(z,dFun(z));
+hold on
+plot(zCentral,dFCenteral,'r')
+plot(zForward,dFForward,'k')
+plot(zBackward,dFBackward,'g')
+legend('Analytic','Central','Forward','Backward')
+dFCenteral(10)
+dFForward(11)
+dFBackward(10)
+%f'(1) bulmak için backward kullanırsak 10.adımda 
+%forwardda 1 adım sonrasında 
+%centralda da 10.adımda F(1) ile karşılaşırız.
