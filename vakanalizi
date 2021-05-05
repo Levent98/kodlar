@@ -1,0 +1,25 @@
+Attached you can find a sample sales data of 3 devices on a single location. Each csv file represents the sales of one device attached to a single tap. You can merge the files or you can examine them separately. 
+
+Please check the seasonality with respect of the day of the week– what are your findings, how would you segment the days?
+What are the patterns you recognize in other key datas provided (e.g. portion size distribution, machine utilization, temperature changes)? You can see the column definitions below.
+Please check the Stopped services (Amount  0) and create an algorithm to convert these stopped values into actual glasses if possible. Ex: Sometimes bartender presses 50CL instead of 30 CL and stops the pouring on 30CL. So, this service should not be counted as waste, instead it should be converted into 30 CL service. How would you convert these values?
+Data Set definitions:
+There are 3 portion opitons on the device menu. You’ll be seeing them on the menu as 30 CL, 50CL, 70CL (these
+values can be different on each device and can also be changed by the bartender) These CL values are kept as
+`SelectedCL`.
+Depending on the buttons pressed, the sale type is sent as `Amount`. First button (30 CL) is 1, Second Button (50
+CL) is 2, Third Button (70CL) is 3.
+If the bartender adds extra foam, it would be 4.
+After you begin pouring, “STOP” button would be visible so that you can stop whenever you want. If you don’t press
+stop button, the device would stop on the proper portion size. If you press stop, the `Amount` value would be 0.
+Amount: Type of sale.
+0 = Stopped
+1-2-3 = Portions
+4 = Extra Foam Added
+You can discard other values if any.
+Vol_total: x / 5700 equal to poured beer volume in liter. This is the actual poured volume, so if the user presses
+30CL, we expect this value would be around 57*30.
+SelectedCL: Selected CL size on the menu.
+Time: Service time
+Pour_time: Total milliseconds of pouring
+Temp_after: Temperature
