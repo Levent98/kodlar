@@ -1,4 +1,4 @@
-class Vehicle {   //encapsulation:objects and elements in same group.
+class Vehicle {   
 protected:
     int speed;
     float steering_angle;
@@ -12,7 +12,7 @@ public:
     }
  };
 
-class Car:public Vehicle {   //Inheritance:passes object from family class to child class
+class Car:public Vehicle {   
       
       public:
            set_speed(int s)
