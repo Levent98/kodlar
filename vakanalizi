@@ -2,7 +2,7 @@ Attached you can find a sample sales data of 3 devices on a single location. Eac
 
 Please check the seasonality with respect of the day of the week– what are your findings, how would you segment the days?
 What are the patterns you recognize in other key datas provided (e.g. portion size distribution, machine utilization, temperature changes)? You can see the column definitions below.
-Please check the Stopped services (Amount  0) and create an algorithm to convert these stopped values into actual glasses if possible. Ex: Sometimes bartender presses 50CL instead of 30 CL and stops the pouring on 30CL. So, this service should not be counted as waste, instead it should be converted into 30 CL service. How would you convert these values?
+Code File I attached ******Please check the Stopped services (Amount  0) and create an algorithm to convert these stopped values into actual glasses if possible. Ex: Sometimes bartender presses 50CL instead of 30 CL and stops the pouring on 30CL. So, this service should not be counted as waste, instead it should be converted into 30 CL service. How would you convert these values?*****
 Data Set definitions:
 There are 3 portion opitons on the device menu. You’ll be seeing them on the menu as 30 CL, 50CL, 70CL (these
 values can be different on each device and can also be changed by the bartender) These CL values are kept as
