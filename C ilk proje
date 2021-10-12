@@ -1,0 +1,132 @@
+#include<stdio.h>
+#include<math.h>
+#include<string.h>
+
+float YasAverage(int sayi, int yaslar[])
+{
+	float Toplam;
+	int i;
+	
+	Toplam=0;
+	
+	for (i=0;i<sayi;i++) {
+		Toplam+=yaslar[i];
+	}
+
+	Toplam=Toplam/sayi;
+	
+	return Toplam;	
+}
+
+float Standartsapma(int sayi,int boy[]) 
+{
+
+	float averaj;
+	int i;
+	float sapma=0;
+
+	int toplam=0;
+	
+	for (i=0;i<sayi;i++) {
+		toplam+=boy[i];
+	}
+    
+	averaj=toplam/sayi;  
+	 
+     toplam=0;
+	for( i=0; i<sayi; i++) {
+	
+	       
+       		toplam += (boy[i]-averaj)*(boy[i]-averaj);
+			   }
+   		 sapma = sqrt(toplam/sayi-1);
+
+	return sapma;
+
+
+}
+
+
+int main (void){
+	
+	FILE *dosya;
+	
+	int i ;
+	int j;
+    char isim[29][10], cinsiyet[29][10], boy[29][10];
+
+	int Girls_Heights[29];
+	int Boys_Heights[29];
+	int G;
+	int B;
+	float Ga;
+	float Ba;
+	int Gs;
+	int Bs;
+	
+
+	 
+	if ((dosya=fopen("C:\\ODEV\\Mak104E_sinifi_boylar.txt","r"))!=NULL) {
+		
+		i=0;
+		while (( fscanf(dosya,"%s %s %s", &isim[i], &cinsiyet[i], &boy[i]))!=EOF) { 
+			
+			printf("%s %s %s \n", isim[i], cinsiyet[i], boy[i] );
+			i++;
+	
+		}
+		
+		printf("Okunan satir sayisi: %d\n", i);
+
+		
+		B=0;
+		G=0;
+		
+		for (j=0; j<i; j++) {
+			
+			
+		
+			if (strcmp(cinsiyet[j],"Erkek")==0) {
+				Boys_Heights[B]=atoi(boy[j]);
+				B++;
+			}
+			
+		
+		   if (strcmp(cinsiyet[j],"Kiz")==0) {
+				Girls_Heights[G]=atoi(boy[j]);
+				G++;
+			}
+			
+	    }
+	    
+	    printf("Erkeklerin sayisi:%d \n", B);
+	    printf("Kizlarin sayisi: %d \n", G);
+	    
+	    Ga=YasAverage(G,Girls_Heights);
+	    Ba=YasAverage(B,Boys_Heights);
+	    
+	    
+	    printf("Erkeklerin boy ortalamasi: %f \n", Ba);
+	    printf("Kizlarin boy ortalamasi: %f\n", Ga);
+		printf("Kizlarin boylarinin standart sapmasi: %f \n",Standartsapma(G,Girls_Heights));		
+		printf("Erkeklerin boylarinin standart sapmasi : %f \n",Standartsapma(B,Boys_Heights));
+		
+		
+			    
+	}
+
+
+	
+	else {
+		
+	printf ("Dosya bulunamadi.");	
+		
+	}
+	
+	
+
+}
+
+
+
+
