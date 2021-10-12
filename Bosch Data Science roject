@@ -135,7 +135,7 @@ int main () {
 		if (c =='\n') {
 			N++;
 		}
-		---->1710 sat˝r Á˝kt˝
+		---->1710 sat√Ωr √ß√Ωkt√Ω
 	}**/
 	Machine* mac;
 	mac = (Machine *)malloc(sizeof(Machine ) * 2000);
@@ -251,7 +251,7 @@ if (amount[k]==0){
     }
   }
   //printf("%d",h);
-  ;//-->596 sat˝r
+  ;//-->596 sat√Ωr
   int x=0;
   int t=0;
   int tt=0;
@@ -309,7 +309,7 @@ if (amount[k]==0){
    }	
   int size1=1709;
   int zero=0; 
- // printf("%d",tt+t1+t2);-->353 tane 0 Á˝karabiliriz
+ // printf("%d",tt+t1+t2);-->353 tane 0 √ß√Ωkarabiliriz
    
     deleteee(&c[0],597,zero);
 	deleteee(&s[0],319,zero);
@@ -334,7 +334,7 @@ if (amount[k]==0){
   }*/
 			
 	for (int y1=0;y1<45;y1++) {		
-	f2[y1+308]=f1[y1];//	-----> "0" indislerini birle˛tirdim 
+	f2[y1+308]=f1[y1];//	-----> "0" indislerini birle√ætirdim 
 }
 
 for (int d9=0;d9<353;d9++) {
@@ -360,7 +360,7 @@ for (int dx2=0;dx2<36;dx2++) {
 	}  	*/	
 
 int size3=1709;	
-write_to_file(size3,&ID[0],&amount[0],&Volume[0],&Converted[0],&CL[0],"C:\\ODEV\\Brandfirst.csv");	//----> datalar˝ csv ye yazd˝rd˝m.
+write_to_file(size3,&ID[0],&amount[0],&Volume[0],&Converted[0],&CL[0],"C:\\ODEV\\Brandfirst.csv");	//----> datalar√Ω csv ye yazd√Ωrd√Ωm.
 
 
  
@@ -374,7 +374,7 @@ return 0;
 
 /*
 
-HAZIRLAYAN : LEVENT KESK›N 
+HAZIRLAYAN : LEVENT KESK√ùN 
 
 */
 
