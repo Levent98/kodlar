@@ -1,0 +1,90 @@
+beta=70;
+f_s=500;
+
+dt=-0.5:1/f_s:0.5-1/f_s;
+S1=(1/2*cos(2*pi*5*dt))+(1/2*cos(2*pi*10*dt));
+S2=sinc(30*dt).*sinc(40*dt);
+
+
+
+s2=cos(200*pi*dt).*S1;
+s3=sin(200*pi*dt).*S2;
+xc=s2+s3;
+
+
+ht=sinc(beta*dt);
+
+z1=1/f_s*conv(ht,xc.*cos(200*pi*dt),'same');
+z2=1/f_s*conv(ht,xc.*sin(200*pi*dt),'same');
+
+
+figure('Name','Function table');
+subplot(311);
+plot(dt,S1);
+title(' x1(t)')
+xlabel('Time in seconds (t)')
+ylabel ('y(t)')
+subplot(312);
+plot(dt,S2);
+title(' x2(t)')
+xlabel('Time in seconds (t)')
+ylabel ('y(t)')
+subplot(313);
+plot(dt,xc);
+title(' xc(t)')
+xlabel('Time in seconds (t)')
+ylabel ('y(t)')
+%Spectrum analysis
+
+figure('Name','Genlik spektrumları');
+
+nfft=length(S1);
+%%nfft2=2^(nextpow2(nfft));% fft için uygun örnek sayısı belirleme
+ffs1=fft(S1,nfft);
+xfft=f_s*(-nfft/2:nfft/2-1)/nfft;
+subplot(311);
+plot(xfft,fftshift(abs(ffs1/nfft)));
+title(' X1(f)')
+xlabel('Frequency in Herz (Hz)')
+ylabel ('Amplitude spectrum')
+
+
+ffs2=fft(S2,nfft);
+xfft=f_s*(-nfft/2:nfft/2-1)/nfft;
+subplot(312);
+plot(xfft,fftshift(abs(ffs2/nfft)));
+title(' X2(f)')
+xlabel('Frequency in Herz (Hz)')
+ylabel ('Amplitude spectrum')
+
+
+ffs3=fft(xc,nfft);
+xfft=f_s*(-nfft/2:nfft/2-1)/nfft;
+subplot(313);
+plot(xfft,fftshift(abs(ffs3/nfft)));
+title(' Xc(f)')
+xlabel('Frequency in Herz (Hz)')
+ylabel ('Amplitude spectrum')
+
+
+figure('Name','Z1 and Z2 functions');
+
+subplot(211);
+plot(dt,z1);
+title(' Z1(t)')
+xlabel('Time in seconds (t)')
+ylabel ('y(t)')
+subplot(212);
+plot(dt,z2);
+title(' Z2(t)')
+xlabel('Time in seconds (t)')
+ylabel ('y(t)')
+
+
+figure('Name','Kanal sinyali');
+
+subplot(211);
+ff1=fft(xc,nfft);
+plot(xfft,fftshift(abs(ff1/nfft)));
+xlabel('Frequency in Herz (Hz)')
+ylabel ('Amplitude spectrum')
