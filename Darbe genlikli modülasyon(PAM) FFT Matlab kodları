@@ -1,0 +1,111 @@
+%%1 a ve b şıkları için yazılan kodlar
+
+f_s=400;
+dt=0:1/f_s:1-1/f_s;
+S1=sinc(20*dt-10);
+figure('Name','Function table');
+subplot(211);
+plot(dt,S1);
+title(' sinc(20t-10)')
+xlabel('Time in seconds (t)')
+ylabel ('y(t)')
+subplot(212);
+nfft=length(S1);
+ 
+ffs1=fft(S1,nfft);
+xfft=f_s*(-nfft/2:nfft/2-1)/nfft;
+plot(xfft,fftshift(abs(ffs1/nfft)));
+title(' Genlik spektrumu')
+xlabel('Time in seconds (t)')
+ylabel ('y(t)')
+ 
+T_s1=10^-6;
+figure();
+subplot(211);
+S2=sinc(20*dt-10);
+plot(dt,S2);
+title(' sinc(20t-10)')
+xlabel('Time in seconds (t)')
+ylabel ('y(t)')
+dt2=0:25000*T_s1:1;
+as=sinc(20*dt2-10);
+subplot(212);
+stem(dt2,as,'MarkerSize',1);
+title(' Sampled signal')
+xlabel('Time in seconds (t)')
+ylabel ('y(t)')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%Ayrı bir matlab kaynak kod dosyası açıp aşağıdaki kodları yazdım
+
+%%1 c ve d şıkları için kodlar
+
+close all; clear all;
+ 
+fc = 40;    %carrier frequency
+fm = 20;     % message frequency
+fs = 400;  % sampling frequency
+t = 1;  
+n = [0:1/fs:t];
+n = n(1:end - 1);
+duty = 20;
+s = square(2*pi*fc*n,duty);
+s(find(s<0)) = 0;
+m = sinc(20*n-10);
+period_samp = length(n)/fc;
+ind = [1:period_samp:length(n)];
+on_samp = ceil(period_samp * duty/100);
+pam = zeros(1,length(n));
+for i = 1 : length(ind)
+   pam(ind(i):ind(i) + on_samp) = m(ind(i));
+end
+subplot(3,1,1);plot(n,s);ylim([-0.2 1.2]);
+title(' Impulse rect train')
+xlabel('Time in seconds')
+subplot(3,1,2);plot(n,pam);ylim([-1.2 1.2]);
+title('Xpam ')
+xlabel('Time in seconds')
+subplot(3,1,3);plot(n,m);ylim([-1.2 1.2]);
+hold on;
+subplot(3,1,3);plot(n,pam);ylim([-1.2 1.2]);
+title('Xpam and message signal')
+xlabel('Time in seconds')
+nfft=length(pam);
+%%nfft2=2^(nextpow2(nfft));% fft için uygun örnek sayısı belirleme
+ffs1=fft(pam,nfft);
+xfft=fs*(-nfft/2:nfft/2-1)/nfft;
+figure('Name','Genlik spektrumları');
+plot(xfft,fftshift(abs(ffs1/nfft)));
+title(' Amplitude spectrum duty cycle=20')
+xlabel('Frequency in Herz (Hz)')
+%%%%%
+duty2 = 40;
+s1 = square(2*pi*fc*n,duty2);
+s1(find(s1<0)) = 0;
+m1 = sinc(20*n-10);
+period_samp1 = length(n)/fc;
+ind1 = [1:period_samp1:length(n)];
+on_samp1 = ceil(period_samp1 * duty2/100);
+pam1 = zeros(1,length(n));
+for i = 1 : length(ind1)
+   pam1(ind1(i):ind1(i) + on_samp1) = m1(ind1(i));
+end
+subplot(3,1,1);plot(n,s1);ylim([-0.2 1.2]);
+title(' Impulse rect train')
+xlabel('Time in seconds')
+subplot(3,1,2);plot(n,pam1);ylim([-1.2 1.2]);
+title('Xpam ')
+xlabel('Time in seconds')
+subplot(3,1,3);plot(n,m1);ylim([-1.2 1.2]);
+hold on;
+subplot(3,1,3);plot(n,pam1);ylim([-1.2 1.2]);
+title('Xpam and message signal')
+xlabel('Time in seconds')
+nfft1=length(pam1);
+%%nfft2=2^(nextpow2(nfft));% fft için uygun örnek sayısı belirleme
+ffs11=fft(pam1,nfft1);
+xfft1=fs*(-nfft1/2:nfft1/2-1)/nfft1;
+figure();
+plot(xfft1,fftshift(abs(ffs11/nfft1)));
+title(' Amplitude spectrum duty cycle=40')
+xlabel('Frequency in Herz (Hz)')
