@@ -1,0 +1,39 @@
+#include <stdlib.h>
+#include <stdio.h>
+int function_find(int start, int target,int i) {
+    
+    int h=0;
+    int new_target;
+    
+    if (target == start ) {
+          
+          new_target=target;
+          return h+i;
+          
+           }
+    else {
+        i++;
+        if (target %2 == 0 && target > start ){
+             new_target=target/2;
+                    }
+        else if (target %2 ==1 && target > start ) {
+            new_target=target+1;
+            }
+        else if (target < start) {
+            new_target=target+1;
+                    }
+        return function_find(start,new_target,i);            
+        }            
+            
+    }
+         
+
+int main()
+{
+    int x;
+    int a= function_find(3,10,0);
+    printf("%d",a);
+   
+
+    return 0;
+}
