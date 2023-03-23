@@ -1,0 +1,46 @@
+HAL_GPIO_WritePin(LED_BLUE_GPIO_Port,LED_BLUE_Pin,GPIO_PIN_SET);
+          HAL_GPIO_WritePin(LED_ORANGE_GPIO_Port,LED_ORANGE_Pin,GPIO_PIN_RESET);
+          HAL_Delay(250);
+          HAL_GPIO_WritePin(LED_BLUE_GPIO_Port,LED_BLUE_Pin,GPIO_PIN_RESET);
+          HAL_GPIO_WritePin(LED_ORANGE_GPIO_Port,LED_ORANGE_Pin,GPIO_PIN_SET);
+          HAL_Delay(250);
+          HAL_GPIO_TogglePin(LED_RED_GPIO_Port,LED_RED_Pin);
+
+          if( HAL_GPIO_ReadPin(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin)==GPIO_PIN_SET){
+                 tempDownCounter=20;
+                           }
+      if (tempDownCounter!=0){
+
+      --tempDownCounter;
+      HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin);}
+
+
+Led animasyon kodlar:
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+        static uint32_t tempCounter=0;
+        if(htim->Instance==TIM14){
+                        ++tempCounter;
+        }
+        if ((tempCounter % 250)==0){
+
+
+                HAL_GPIO_TogglePin(LED_RED_GPIO_Port,LED_RED_Pin);
+        }
+        if ((tempCounter % 500)==0){
+
+
+                        HAL_GPIO_TogglePin(LED_BLUE_GPIO_Port,LED_BLUE_Pin);
+                }
+        if ((tempCounter % 750)==0){
+
+                                HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin);
+                }
+        if ((tempCounter >1000)){
+
+                        tempCounter=0;
+                        HAL_GPIO_TogglePin(LED_ORANGE_GPIO_Port,LED_ORANGE_Pin);
+                }
+
+
+}
