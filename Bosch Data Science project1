@@ -362,11 +362,15 @@ for (int dx2=0;dx2<36;dx2++) {
 int size3=1709;	
 write_to_file(size3,&ID[0],&amount[0],&Volume[0],&Converted[0],&CL[0],"C:\\ODEV\\Brandfirst.csv");	//----> datalarý csv ye yazdýrdým.
 
+delete mac;
+delete mac1;
+delete f2;
 
+mac=NULL;
+mac1=NULL;
+f2=NULL;
  
-free(mac);
-free(mac1);
-free (f2);
+
 
 return 0;
 }
