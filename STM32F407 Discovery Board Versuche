@@ -44,3 +44,4 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 
 
 }
+//HAL Library exercises in STM32F407G
